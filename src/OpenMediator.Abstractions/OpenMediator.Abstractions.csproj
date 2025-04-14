@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
+    <RootNamespace>OpenMediator</RootNamespace>
     <Authors>Paulo Zier, Gustavo Mazuquini, Diego Magalhães</Authors>
     <Description>Open source mediator implementation in .NET</Description>
     <Copyright>Copyright Paulo Zier</Copyright>
@@ -14,13 +15,5 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0,)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OpenMediator.Abstractions\OpenMediator.Abstractions.csproj" />
-  </ItemGroup>
 
 </Project>
