@@ -20,23 +20,32 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract version from tag
+        run: echo "PACKAGE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
       - name: Clean
         run: dotnet clean
-        
-      - name: Restore
+
+      - name: Restore dependencies
         run: dotnet restore
-        
-      - name: Build
-        run: dotnet build -C Release
 
-      - name: Pack
-        run: dotnet pack .\src\OpenMediator\OpenMediator.csproj -c Release -o ./nupkgs --no-build 
+      - name: Build all projects
+        run: dotnet build -c Release --no-restore
 
-      - name: Push to NuGet.org
-        run: dotnet nuget push ./nupkgs/*.nupkg --source ${{ secrets.NUGET_URL }} --api-key ${{ secrets.NUGET_API_KEY }}
+      - name: Pack OpenMediator.Abstractions
+        run: dotnet pack ./src/OpenMediator.Abstractions/OpenMediator.Abstractions.csproj -c Release -o ./nupkgs --no-build /p:PackageVersion=${PACKAGE_VERSION}
 
-      - name: Upload files
+      - name: Add local nupkgs as NuGet source
+        run: dotnet nuget add source ./nupkgs -n Local
+
+      - name: Pack OpenMediator
+        run: dotnet pack ./src/OpenMediator/OpenMediator.csproj -c Release -o ./nupkgs --no-build /p:PackageVersion=${PACKAGE_VERSION}
+
+      - name: Push packages to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --skip-duplicate --source ${{ secrets.NUGET_URL }} --api-key ${{ secrets.NUGET_API_KEY }}
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-            name: files
-            path: nupkgs
+          name: nuget-packages
+          path: ./nupkgs

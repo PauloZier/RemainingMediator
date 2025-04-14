@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenMediator.Abstractions\OpenMediator.Abstractions.csproj" />
+    <PackageReference Include="OpenMediator.Abstractions" Version="*" />
   </ItemGroup>
-
+  
 </Project>
