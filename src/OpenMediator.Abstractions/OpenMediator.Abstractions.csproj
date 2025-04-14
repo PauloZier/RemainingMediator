@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
-    <RootNamespace>OpenMediator</RootNamespace>
+    <RootNamespace>OpenMediator.Abstractions</RootNamespace>
     <Authors>Paulo Zier, Gustavo Mazuquini, Diego Magalhães</Authors>
     <Description>Open source mediator implementation in .NET</Description>
     <Copyright>Copyright Paulo Zier</Copyright>
