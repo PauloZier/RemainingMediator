@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <RootNamespace>RemainingMediator.Abstractions</RootNamespace>
-    <Authors>Paulo Zier, Gustavo Mazuquini, Diego Magalhães</Authors>
+    <Authors>Paulo Zier, Gustavo Mazuquini, Diego Magalhães, Pedro Zier</Authors>
     <Description>Open source mediator implementation in .NET</Description>
     <Copyright>Copyright Paulo Zier</Copyright>
     <PackageTags>mediator;request;response;queries;commands;notifications</PackageTags>
