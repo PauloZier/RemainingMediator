@@ -42,7 +42,7 @@ jobs:
         run: dotnet pack ./src/OpenMediator/OpenMediator.csproj -c Release -o ./nupkgs --no-build /p:PackageVersion=${PACKAGE_VERSION}
 
       - name: Push packages to NuGet
-        run: dotnet nuget push ./nupkgs/*.nupkg --skip-duplicate --source ${{ secrets.NUGET_URL }} --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ./nupkgs/*.nupkg --skip-duplicate -s ${{ secrets.NUGET_URL }} -k ${{ secrets.NUGET_API_KEY }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
