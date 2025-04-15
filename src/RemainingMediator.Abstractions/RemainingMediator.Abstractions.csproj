@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>RemainingMediator.Abstractions</RootNamespace>
+    <Authors>Paulo Zier, Gustavo Mazuquini, Diego Magalhães</Authors>
+    <Description>Open source mediator implementation in .NET</Description>
+    <Copyright>Copyright Paulo Zier</Copyright>
+    <PackageTags>mediator;request;response;queries;commands;notifications</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>/</PackagePath>
+		</None>
+  </ItemGroup>
+
+</Project>

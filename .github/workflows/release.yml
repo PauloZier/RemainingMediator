@@ -1,0 +1,51 @@
+name: Build and Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version from tag
+        run: echo "PACKAGE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Clean
+        run: dotnet clean
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build all projects
+        run: dotnet build -c Release --no-restore
+
+      - name: Pack RemainingMediator.Abstractions
+        run: dotnet pack ./src/RemainingMediator.Abstractions/RemainingMediator.Abstractions.csproj -c Release -o ./nupkgs --no-build /p:PackageVersion=${PACKAGE_VERSION}
+
+      - name: Add local nupkgs as NuGet source
+        run: dotnet nuget add source ./nupkgs -n Local
+
+      - name: Pack RemainingMediator
+        run: dotnet pack ./src/RemainingMediator/RemainingMediator.csproj -c Release -o ./nupkgs --no-build /p:PackageVersion=${PACKAGE_VERSION}
+
+      - name: Push packages to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --skip-duplicate -s ${{ secrets.NUGET_URL }} -k ${{ secrets.NUGET_API_KEY }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: ./nupkgs
