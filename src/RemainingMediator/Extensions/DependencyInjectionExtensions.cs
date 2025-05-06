@@ -10,8 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddRemainingMediator(this IServiceCollection services,
-                                                 ServiceLifetime serviceLifetime = ServiceLifetime.Transient,
-                                                 params Assembly[] assemblies)
+                                                          ServiceLifetime serviceLifetime = ServiceLifetime.Transient,
+                                                          params Assembly[] assemblies)
     {
         services.AddTransient<IMediator, Mediator>();
         
