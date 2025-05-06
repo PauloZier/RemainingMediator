@@ -20,8 +20,6 @@ Você pode instalar o pacote via NuGet:
 dotnet add package RemainingMediator
 ```
 
-<br />
-
 ## 🚀 Como Usar
 
 ### 1. Defina uma requisição (comando ou consulta)
